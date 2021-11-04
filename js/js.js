@@ -61,14 +61,17 @@ console.log(arregloMusica);
 
 function createDiv() {
   // create a new div element
-  let a = document.getElementsByClassName("z");
+  let a = document.getElementsByClassName("newDiv");
   if (a.length == 0) {
     newDiv = document.createElement("div");
     console.log(a);
     newDiv.setAttribute("id", "myDiv");
-    newDiv.classList.add("z");
+    newDiv.classList.add("newDiv");
     // and give it some content
-    const newContent = document.createTextNode("Hi there and greetings!");
+    const newContent = document.createTextNode(
+      "Ingrese la lista de números separados por un (,) o espacio. "
+    );
+    const newContent1 = document.createTextNode("Ejemplo '2,4,5' o '2 4 5'");
     const button = document.createElement("button");
     // add the text node to the newly created div
     button.innerHTML = "Regresar";
@@ -79,6 +82,7 @@ function createDiv() {
     };
     button.name = "formBtn";
     newDiv.appendChild(newContent);
+    newDiv.appendChild(newContent1);
     newDiv.appendChild(button);
 
     // add the newly created element and its content into the DOM
