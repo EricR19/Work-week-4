@@ -8,9 +8,9 @@ function pares(numeros) {
     }
   }
   if (arregloPar.length == 0) {
-    alert("No hay datos");
+    return "No hay numeros pares";
   } else {
-    alert(arregloPar);
+    return "Los números pares del arreglo son: " + arregloPar;
   }
 }
 
@@ -73,6 +73,8 @@ function createElements() {
     "Ingrese la lista de números separados por un (,) o espacio. "
   );
   const label = document.createTextNode("Ingrese los números: ");
+  const labelInfo = document.createElement("label");
+  labelInfo.setAttribute("id", "infoPares");
   const inp = document.createElement("input");
   inp.setAttribute("id", "numerosPares");
   inp.setAttribute("placeholder", "Ejemplo: '2,4,5' ó '2 4 5'");
@@ -82,6 +84,8 @@ function createElements() {
   buttonEnviar.setAttribute("class", "btn btn-primary btn-1");
   buttonEnviar.setAttribute("id", "buttonPares");
   buttonEnviar.onclick = function () {
+    let remove = document.getElementById("infoPares");
+    remove.textContent = "";
     obtenerdatos();
   };
   const button = document.createElement("button");
@@ -98,6 +102,7 @@ function createElements() {
   newDiv.appendChild(inp);
   newDiv.appendChild(buttonEnviar);
   newDiv.appendChild(button);
+  newDiv.appendChild(labelInfo);
 
   const currentDiv = document.getElementById("col-one");
   currentDiv.appendChild(newDiv);
@@ -105,5 +110,9 @@ function createElements() {
 
 function obtenerdatos() {
   let data = document.getElementById("numerosPares").value.replace(/ /g, ",");
-  pares(data.split(","));
+  let a = pares(data.split(","));
+  mensaje(a);
+}
+function mensaje(z) {
+  document.getElementById("infoPares").textContent += z;
 }
