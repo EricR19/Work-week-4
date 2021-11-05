@@ -75,7 +75,7 @@ function createElements() {
   const label = document.createTextNode("Ingrese los números: ");
   const inp = document.createElement("input");
   inp.setAttribute("id", "numerosPares");
-  inp.setAttribute("placeholder", "Ejemplo: '2,4,5'");
+  inp.setAttribute("placeholder", "Ejemplo: '2,4,5' ó '2 4 5'");
 
   const buttonEnviar = document.createElement("button");
   buttonEnviar.innerHTML = "Obtener Pares";
