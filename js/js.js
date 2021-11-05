@@ -2,19 +2,17 @@
 
 function pares(numeros) {
   arregloPar = [];
-
   for (let i = 0; i < numeros.length; i++) {
-    if (numeros[i] % 2 == 0) {
+    if (numeros[i] % 2 == 0 && numeros[i] > 0) {
       arregloPar.push(numeros[i]);
     }
   }
-  if (arreglo.length == 0) {
-    console.log("No hay datos");
+  if (arregloPar.length == 0) {
+    alert("No hay datos");
   } else {
-    console.log(arregloPar);
+    alert(arregloPar);
   }
 }
-pares([1, 3, 5, 7, 8, 10]);
 
 //Cree una función que sume todos los elementos de un arreglo dado.
 function sumaArreglo(suma) {
@@ -60,35 +58,52 @@ console.log(arregloMusica);
 //Create Div
 
 function createDiv() {
-  // create a new div element
   let a = document.getElementsByClassName("newDiv");
   if (a.length == 0) {
-    newDiv = document.createElement("div");
-    console.log(a);
-    newDiv.setAttribute("id", "myDiv");
-    newDiv.classList.add("newDiv");
-    // and give it some content
-    const newContent = document.createTextNode(
-      "Ingrese la lista de números separados por un (,) o espacio. "
-    );
-    const newContent1 = document.createTextNode("Ejemplo '2,4,5' o '2 4 5'");
-    const button = document.createElement("button");
-    // add the text node to the newly created div
-    button.innerHTML = "Regresar";
-    button.type = "";
-    button.onclick = function () {
-      var elem = document.getElementById("myDiv");
-      elem.parentNode.removeChild(elem);
-    };
-    button.name = "formBtn";
-    newDiv.appendChild(newContent);
-    newDiv.appendChild(newContent1);
-    newDiv.appendChild(button);
-
-    // add the newly created element and its content into the DOM
-    const currentDiv = document.getElementById("col-one");
-    currentDiv.appendChild(newDiv, button);
+    createElements();
   } else {
     alert("No");
   }
+}
+function createElements() {
+  let newDiv = document.createElement("div");
+  newDiv.setAttribute("id", "myDiv");
+  newDiv.classList.add("newDiv");
+  const newContent = document.createTextNode(
+    "Ingrese la lista de números separados por un (,) o espacio. "
+  );
+  const label = document.createTextNode("Ingrese los números: ");
+  const inp = document.createElement("input");
+  inp.setAttribute("id", "numerosPares");
+  inp.setAttribute("placeholder", "Ejemplo: '2,4,5'");
+
+  const buttonEnviar = document.createElement("button");
+  buttonEnviar.innerHTML = "Obtener Pares";
+  buttonEnviar.setAttribute("class", "btn btn-primary btn-1");
+  buttonEnviar.setAttribute("id", "buttonPares");
+  buttonEnviar.onclick = function () {
+    obtenerdatos();
+  };
+  const button = document.createElement("button");
+
+  button.innerHTML = "Regresar";
+  button.setAttribute("class", "btn btn-primary btn-1");
+  button.onclick = function () {
+    var elem = document.getElementById("myDiv");
+    elem.parentNode.removeChild(elem);
+  };
+  button.name = "formBtn";
+  newDiv.appendChild(newContent);
+  newDiv.appendChild(label);
+  newDiv.appendChild(inp);
+  newDiv.appendChild(buttonEnviar);
+  newDiv.appendChild(button);
+
+  const currentDiv = document.getElementById("col-one");
+  currentDiv.appendChild(newDiv);
+}
+
+function obtenerdatos() {
+  let data = document.getElementById("numerosPares").value.replace(/ /g, ",");
+  pares(data.split(","));
 }
