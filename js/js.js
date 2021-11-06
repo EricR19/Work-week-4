@@ -17,12 +17,16 @@ function pares(numeros) {
 //Cree una función que sume todos los elementos de un arreglo dado.
 function sumaArreglo(suma) {
   let sum = 0;
+  suma = suma.filter((e) => String(e).trim());
   for (let i = 0; i < suma.length; i++) {
-    sum += suma[i];
+    sum += parseInt(suma[i]);
   }
-  console.log(sum);
+  if (suma.length > 1) {
+    return "La suma total del arreglo es: " + sum;
+  } else {
+    return "No hay números en el arreglo";
+  }
 }
-sumaArreglo([3, 2, 44, 5, 6, 7, 10]);
 
 /*Hagamos 5 operaciones sobre un array:
 • Cree un array llamado musicales con los elementos "Rock" y "Salsa".
@@ -60,17 +64,26 @@ console.log(arregloMusica);
 function createDiv() {
   let a = document.getElementsByClassName("newDiv");
   if (a.length == 0) {
-    createElements();
+    createElementsNumerosPares();
   } else {
     alert("No");
   }
 }
-function createElements() {
+
+function createDivSuma() {
+  let a = document.getElementsByClassName("myDivSuma");
+  if (a.length == 0) {
+    createElementsSumaArreglo();
+  } else {
+    alert("No");
+  }
+}
+function createElementsNumerosPares() {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("id", "myDiv");
   newDiv.classList.add("newDiv");
   const newContent = document.createTextNode(
-    "Ingrese la lista de números separados por un (,) o espacio. "
+    "Ingrese la lista de números separados por una (,) o espacio. "
   );
   const label = document.createTextNode("Ingrese los números: ");
   const labelInfo = document.createElement("label");
@@ -107,12 +120,62 @@ function createElements() {
   const currentDiv = document.getElementById("col-one");
   currentDiv.appendChild(newDiv);
 }
+function createElementsSumaArreglo() {
+  let newDiv = document.createElement("div");
+  newDiv.setAttribute("id", "myDivSuma");
+  newDiv.classList.add("myDivSuma");
+  const newContent = document.createTextNode(
+    "Ingrese la lista de números separados por una (,) o espacio. Para obtener la suma total. "
+  );
+  const label = document.createTextNode("Ingrese los números: ");
+  const labelInfo = document.createElement("label");
+  labelInfo.setAttribute("id", "infoSuma");
+  const inp = document.createElement("input");
+  inp.setAttribute("id", "sumaNumeros");
+  inp.setAttribute("placeholder", "Ejemplo: '2,4,5' ó '2 4 5'");
+
+  const buttonEnviar = document.createElement("button");
+  buttonEnviar.innerHTML = "Obtener Pares";
+  buttonEnviar.setAttribute("class", "btn btn-primary btn-1");
+  buttonEnviar.setAttribute("id", "buttonPares");
+  buttonEnviar.onclick = function () {
+    let remove = document.getElementById("infoSuma");
+    remove.textContent = "";
+    obtenerSuma();
+  };
+  const button = document.createElement("button");
+
+  button.innerHTML = "Regresar";
+  button.setAttribute("class", "btn btn-primary btn-1");
+  button.onclick = function () {
+    var elem = document.getElementById("myDivSuma");
+    elem.parentNode.removeChild(elem);
+  };
+  button.name = "formBtn";
+  newDiv.appendChild(newContent);
+  newDiv.appendChild(label);
+  newDiv.appendChild(inp);
+  newDiv.appendChild(buttonEnviar);
+  newDiv.appendChild(button);
+  newDiv.appendChild(labelInfo);
+
+  const currentDiv = document.getElementById("sumaArreglo");
+  currentDiv.appendChild(newDiv);
+}
 
 function obtenerdatos() {
   let data = document.getElementById("numerosPares").value.replace(/ /g, ",");
   let a = pares(data.split(","));
   mensaje(a);
 }
+function obtenerSuma() {
+  let data = document.getElementById("sumaNumeros").value.replace(/ /g, ",");
+  mensajeSuma(sumaArreglo(data.split(",")));
+}
+
 function mensaje(z) {
   document.getElementById("infoPares").textContent += z;
+}
+function mensajeSuma(msj) {
+  document.getElementById("infoSuma").textContent += msj;
 }
