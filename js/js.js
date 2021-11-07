@@ -38,22 +38,28 @@ valor del medio debe de funcionar para cualquier array con valor impar.
 
 let arregloMusica = ["Rock", "Salsa"];
 
+
+
 function agregarMusica(genero) {
-    arregloMusica.push(genero);
-    return arregloMusica;
+    let musica = arregloMusica;
+    musica.push(genero);
+    return musica;
 }
 
-function reemplazarMedio() {
+function reemplazarMedio(genero) {
     if (arregloMusica.length % 2 == 1) {
         let dato = arregloMusica.length / 2;
-        arregloMusica[Math.round(dato - 1)] = "Clásica";
-        console.log(arregloMusica);
+        arregloMusica[Math.round(dato - 1)] = genero;
+        return arregloMusica
+    } else {
+        return "El arreglo de música no es de tamaño impar, no se puede reemplazr el medio"
     }
 }
 
 function eliminarMusica() {
-    console.log(arregloMusica[0]);
+    let primero = arregloMusica[0];
     arregloMusica.shift();
+    return primero;
 }
 
 
@@ -195,8 +201,27 @@ function createElementsMusica() {
         remove.textContent = "";
         insertarGenero();
     };
-    const button = document.createElement("button");
+    const buttonRemplazarMedio = document.createElement("button");
+    buttonRemplazarMedio.innerHTML = "Ingresar Valor en el medio";
+    buttonRemplazarMedio.setAttribute("class", "btn btn-primary btn-1");
+    buttonRemplazarMedio.setAttribute("id", "reemplazar");
+    buttonRemplazarMedio.onclick = function() {
+        let remove = document.getElementById("infoMusica");
+        remove.textContent = "";
+        insertarMedio();
+    }
 
+    const buttonEliminar = document.createElement("button");
+    buttonEliminar.innerHTML = "Eliminar primer valor";
+    buttonEliminar.setAttribute("class", "btn btn-primary btn-1");
+    buttonEliminar.onclick = function() {
+        let remove = document.getElementById("infoMusica");
+        remove.textContent = "";
+        eliminar();
+
+    }
+
+    const button = document.createElement("button");
     button.innerHTML = "Regresar";
     button.setAttribute("class", "btn btn-primary btn-1");
     button.onclick = function() {
@@ -208,6 +233,8 @@ function createElementsMusica() {
     newDiv.appendChild(label);
     newDiv.appendChild(inp);
     newDiv.appendChild(buttonEnviar);
+    newDiv.appendChild(buttonRemplazarMedio);
+    newDiv.appendChild(buttonEliminar);
     newDiv.appendChild(button);
     newDiv.appendChild(labelInfo);
 
@@ -223,7 +250,7 @@ function obtenerdatos() {
 }
 
 function obtenerSuma() {
-    //let data = document.getElementById("sumaNumeros").value.replace(/ /g, ",");
+    let data = document.getElementById("sumaNumeros").value.replace(/ /g, ",");
     mensajeSuma(sumaArreglo(data.split(",")));
 }
 
@@ -231,6 +258,17 @@ function insertarGenero() {
     let data = document.getElementById("generoMusical").value;
     let a = agregarMusica(data);
     document.getElementById("infoMusica").textContent += a;
+}
+
+function insertarMedio() {
+    let data = document.getElementById("generoMusical").value;
+    let a = reemplazarMedio(data);
+    document.getElementById("infoMusica").textContent += a;
+}
+
+function eliminar() {
+    let eliminado = eliminarMusica();
+    document.getElementById("infoMusica").textContent += eliminado;
 }
 
 function mensaje(z) {
